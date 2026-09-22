@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ note.title }} — NoteSage{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-3">
+    <div>
+        <h2>{{ note.title }}</h2>
+        <p class="text-muted mb-1">
+            Created {{ note.created_at|date:"M j, Y g:i A" }} · Updated {{ note.updated_at|date:"M j, Y g:i A" }}
+        </p>
+        {% for tag in note.tags.all %}
+        <span class="badge bg-secondary">{{ tag.name }}</span>
+        {% endfor %}
+    </div>
+    <div>
+        <a href="{% url 'note_update' note.pk %}" class="btn btn-outline-secondary btn-sm">Edit</a>
+        <a href="{% url 'note_delete' note.pk %}" class="btn btn-outline-danger btn-sm">Delete</a>
+    </div>
+</div>
+
+<p style="white-space: pre-wrap;">{{ note.body }}</p>
+
+<a href="{% url 'note_list' %}">&larr; Back to notes</a>
+{% endblock %}
