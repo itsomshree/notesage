@@ -23,5 +23,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),
     path("notes/", include("notes.urls")),
+    path("ask/", include("ai_search.urls")),
     path("", RedirectView.as_view(pattern_name="note_list", permanent=False)),
 ]
