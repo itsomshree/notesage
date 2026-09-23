@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Ask — NoteSage{% endblock %}
+
+{% block content %}
+<h2>Ask your notes</h2>
+<p class="text-muted">Semantic search — finds notes by meaning, not just keyword.</p>
+
+<form method="get" class="d-flex gap-2 mb-4">
+    <input type="text" name="q" value="{{ query }}" class="form-control"
+        placeholder="e.g. what did I decide about the budget?" autofocus>
+    <button type="submit" class="btn btn-primary">Ask</button>
+</form>
+
+{% if error %}
+<div class="alert alert-warning">{{ error }}</div>
+{% elif query and not results %}
+<p class="text-muted">No matching notes found.</p>
+{% endif %}
+
+{% if results %}
+<div class="list-group">
+    {% for result in results %}
+    <a href="{% url 'note_detail' result.note.pk %}" class="list-group-item list-group-item-action">
+        <div class="d-flex justify-content-between">
+            <strong>{{ result.note.title }}</strong>
+            <small class="text-muted">match {{ result.score|floatformat:2 }}</small>
+        </div>
+        <p class="mb-0 text-truncate">{{ result.note.body }}</p>
+    </a>
+    {% endfor %}
+</div>
+{% endif %}
+
+<a href="{% url 'note_list' %}" class="d-inline-block mt-3">&larr; Back to notes</a>
+{% endblock %}
