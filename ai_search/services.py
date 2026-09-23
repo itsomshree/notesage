@@ -28,3 +28,10 @@ def embed_note(note_id, title: str, body: str, owner_id=None) -> list[float]:
 
     pinecone_client.upsert_vector(note_id=note_id, vector=vector, metadata=metadata)
     return vector
+
+
+def semantic_search(query: str, owner_id, top_k: int = 5):
+    vector = embed_text(query)
+    return pinecone_client.query_similar(
+        vector, top_k=top_k, filter={"owner_id": owner_id}
+    )
