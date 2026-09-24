@@ -4,7 +4,7 @@
 
 {% block content %}
 <h2>Ask your notes</h2>
-<p class="text-muted">Semantic search — finds notes by meaning, not just keyword.</p>
+<p class="text-muted">Ask a question or give an instruction — e.g. "note about recipe" or "summarize this recipe note".</p>
 
 <form method="get" class="d-flex gap-2 mb-4">
     <input type="text" name="q" value="{{ query }}" class="form-control"
@@ -14,18 +14,27 @@
 
 {% if error %}
 <div class="alert alert-warning">{{ error }}</div>
-{% elif query and not results %}
+{% endif %}
+
+{% if answer %}
+<div class="card mb-4">
+    <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted">Answer</h6>
+        <p class="card-text" style="white-space: pre-wrap;">{{ answer }}</p>
+    </div>
+</div>
+{% endif %}
+
+{% if query and not results and not error %}
 <p class="text-muted">No matching notes found.</p>
 {% endif %}
 
 {% if results %}
+<h6 class="text-muted">{% if answer %}Sources{% else %}Matching notes{% endif %}</h6>
 <div class="list-group">
     {% for result in results %}
     <a href="{% url 'note_detail' result.note.pk %}" class="list-group-item list-group-item-action">
-        <div class="d-flex justify-content-between">
-            <strong>{{ result.note.title }}</strong>
-            <small class="text-muted">match {{ result.score|floatformat:2 }}</small>
-        </div>
+        <strong>{{ result.note.title }}</strong>
         <p class="mb-0 text-truncate">{{ result.note.body }}</p>
     </a>
     {% endfor %}
