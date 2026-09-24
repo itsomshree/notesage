@@ -5,6 +5,7 @@ import django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 django.setup()
 
+from ai_search.pinecone_client import delete_vector  # noqa: E402
 from ai_search.services import embed_note, semantic_search  # noqa: E402
 
 SAMPLE_NOTES = [
@@ -43,7 +44,7 @@ def run():
             f"  note {note_id} ({title!r}, owner {owner_id}): vector length {len(vector)}"
         )
 
-    # --- Relevance check ---
+    # Relevance check
     query_text = "What did we decide about garlic pasta?"
     print(f"\nsemantic_search({query_text!r}, owner_id=1)")
     matches = semantic_search(query_text, owner_id=1, top_k=3)
@@ -81,4 +82,17 @@ def run():
         print(" Isolation check FAILED: another owner's note leaked into the results!")
 
 
-run()
+def cleanup():
+    print("\nCleaning up sample vectors...")
+    for note_id, _, _, _ in SAMPLE_NOTES:
+        try:
+            delete_vector(note_id)
+            print(f"  deleted note {note_id}")
+        except Exception as exc:  # noqa: BLE001
+            print(f"  failed to delete note {note_id}: {exc}")
+
+
+try:
+    run()
+finally:
+    cleanup()
