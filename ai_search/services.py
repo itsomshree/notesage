@@ -39,17 +39,17 @@ def semantic_search(query: str, owner_id, top_k: int = 5):
 
 RELEVANCE_MARGIN = 0.15
 
-MIN_TOP_SCORE = 0.2
+MIN_SCORE = 0.15
 
 
-def ask_question(query: str, owner_id, top_k: int = 5) -> dict:
+def ask_question(query: str, owner_id, top_k: int = 8) -> dict:
     from notes.models import Note
 
     matches = semantic_search(query, owner_id=owner_id, top_k=top_k)
 
-    if matches and matches[0]["score"] >= MIN_TOP_SCORE:
-        cutoff = matches[0]["score"] - RELEVANCE_MARGIN
-        matches = [m for m in matches if m["score"] >= cutoff]
+    if matches and matches[0]["score"] >= MIN_SCORE:
+        matches = semantic_search(query, owner_id=owner_id, top_k=top_k)
+        matches = [m for m in matches if m["score"] >= MIN_SCORE]
     else:
         matches = []
 
