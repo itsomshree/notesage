@@ -3,13 +3,13 @@
 {% block title %}Your Notes — NoteSage{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-3">
+<div class="d-flex justify-content-between align-items-center mb-3 header-row">
     <h2>Your Notes</h2>
     <a href="{% url 'note_create' %}" class="btn btn-primary">New Note</a>
 </div>
 
 <form method="get" class="row g-2 mb-3">
-    <div class="col-auto">
+    <div class="col-auto flex-grow-1 flex-sm-grow-0">
         <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Search notes...">
     </div>
     <div class="col-auto">
@@ -70,6 +70,13 @@
 </nav>
 {% endif %}
 {% else %}
-<p class="text-muted">No notes yet{% if query or active_tag %} matching your filters{% endif %}.</p>
+<div class="empty-state">
+    <p class="empty-state-title">No notes yet{% if query or active_tag %} matching your filters{% endif %}.</p>
+    {% if query or active_tag %}
+    <a href="{% url 'note_list' %}" class="btn btn-outline-secondary btn-sm">Clear filters</a>
+    {% else %}
+    <a href="{% url 'note_create' %}" class="btn btn-primary btn-sm">Write your first note</a>
+    {% endif %}
+</div>
 {% endif %}
 {% endblock %}
