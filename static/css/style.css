@@ -1,3 +1,5 @@
+/* NoteSage — dark theme with amber accent. Loads after Bootstrap and overrides it. */
+
 :root {
     --bg: #14161c;
     --surface: #1d2028;
@@ -32,7 +34,7 @@ body {
     min-height: 100vh;
 }
 
-/* Layout*/
+/* ---------- Layout ---------- */
 
 .content {
     max-width: 760px;
@@ -50,7 +52,7 @@ h2 {
     color: var(--muted) !important;
 }
 
-/* Navbar */
+/* ---------- Navbar ---------- */
 
 .site-nav {
     background: var(--nav-bg);
@@ -86,7 +88,7 @@ h2 {
     padding-right: 0.5rem;
 }
 
-/* Buttons */
+/* ---------- Buttons ---------- */
 
 .btn {
     border-radius: 8px;
@@ -146,7 +148,7 @@ h2 {
     outline-offset: 2px;
 }
 
-/* Tags */
+/* ---------- Tags ---------- */
 
 .badge {
     font-weight: 500;
@@ -165,7 +167,7 @@ h2 {
     color: var(--accent-ink) !important;
 }
 
-/* Note list */
+/* ---------- Note list ---------- */
 
 .list-group {
     gap: 0.6rem;
@@ -201,7 +203,7 @@ h2 {
     margin-top: 0.4rem;
 }
 
-/* Forms */
+/* ---------- Forms ---------- */
 
 .form-control {
     background: var(--surface);
@@ -277,7 +279,7 @@ h2 {
     margin: 0 0 0.3rem;
 }
 
-/* Note detail */
+/* ---------- Note detail ---------- */
 
 .note-body {
     font-family: var(--font-read);
@@ -288,7 +290,7 @@ h2 {
     margin: 1.5rem 0 2rem;
 }
 
-/* Pagination */
+/* ---------- Pagination ---------- */
 
 .pagination .page-link {
     color: var(--accent);
@@ -305,7 +307,7 @@ h2 {
     background: transparent;
 }
 
-/* Ask AI */
+/* ---------- Ask AI ---------- */
 
 .card {
     background: var(--surface);
@@ -345,12 +347,90 @@ h2 {
     margin-top: 1.5rem;
 }
 
+
+
+/* ---------- Empty state ---------- */
+
+.empty-state {
+    background: var(--surface);
+    border: 1px dashed var(--line);
+    border-radius: 12px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.empty-state-title {
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+}
+
+/* ---------- Confirm delete ---------- */
+
+.confirm-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--danger);
+    border-radius: 10px;
+    padding: 1.5rem 1.75rem;
+    max-width: 480px;
+}
+
+.confirm-card h2 {
+    font-size: 1.4rem;
+}
+
+/* ---------- Mobile ---------- */
+
 @media (max-width: 576px) {
     h2 {
         font-size: 1.55rem;
     }
-
     .note-body {
         font-size: 1.1rem;
+    }
+
+    .site-nav {
+        padding: 0.6rem 0.9rem;
+    }
+    .site-nav .navbar-brand {
+        font-size: 1.25rem;
+    }
+    .site-nav .nav-user {
+        display: none; /* username hidden on narrow screens to keep the nav on one line */
+    }
+    .site-nav .navbar-nav {
+        gap: 0.1rem;
+    }
+
+    .header-row {
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+
+    form.row.g-2 {
+        flex-wrap: wrap;
+    }
+    form.row.g-2 .col-auto {
+        width: 100%;
+    }
+    form.row.g-2 .col-auto:not(:first-child) {
+        width: auto;
+    }
+
+    .stack {
+        max-width: 100%;
+    }
+
+    .ask-fab {
+        bottom: 16px;
+        right: 16px;
+        padding: 0.6rem 1.1rem;
+        font-size: 0.9rem;
+    }
+
+    .confirm-card {
+        padding: 1.25rem 1.25rem;
     }
 }
