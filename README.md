@@ -3,9 +3,7 @@
 A personal knowledge base / notes app built in Django, with an isolated AI
 semantic-search feature layered on top. Built primarily as a Django
 project – CRUD, auth, the ORM, forms, admin – with the
-LLM/embeddings piece kept in its own app so it can be built and understood
-independently of the core notes app.
-
+LLM/embeddings piece kept in its own app.
 - **Core app (`notes`):** full CRUD on notes, tagging, per-user isolation,
   plain-text search, pagination, Django admin. Works completely standalone,
   with zero dependency on AI features.
